@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* Модальное окно */
+.modal {
+  font-family: "Nunito Sans", serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 44.48px;
+  color: #e0a449;
+  letter-spacing: 0.03em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Затемнение фона */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Контент модального окна */
+.modal-content {
+  width: 545px;
+  height: 309px;
+  background: #343333;
+  text-align: center;
+  position: relative;
+  filter: none; /* Модальное окно не должно быть размытым */
+}
+
+p {
+  margin: 89px 72px 88px 72px;
+}
+
+/* Кнопка закрытия модального окна */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Когда модальное окно активно */
+.modal.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Размытие всей страницы при активном модальном окне */
+body.blur *:not(.modal, .modal *) {
+  filter: blur(5px); /* Размыть все, кроме модального окна */
+  pointer-events: none;
+}

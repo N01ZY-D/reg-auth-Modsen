@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authorization</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">MODSEN</div>
+      <nav>
+        <ul>
+          <li><a href="registration.html">Registration</a></li>
+          <li><a href="auth.html">Authorization</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="blur-background">
+      <section class="form-section">
+        <h2>Authorization</h2>
+        <form id="auth-form">
+          <label for="auth-email">Email</label>
+          <input type="email" id="auth-email" name="auth-email" required />
+
+          <label for="auth-password">Password</label>
+          <input
+            type="password"
+            id="auth-password"
+            name="auth-password"
+            required
+          />
+
+          <button type="submit">SUBMIT</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Модальное окно -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p></p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
