@@ -13,17 +13,21 @@
     <main class="blur-background">
       <section class="form-section">
         <h2>Authorization</h2>
-        <form id="auth-form">
-          <label for="auth-email">Email</label>
-          <input type="email" id="auth-email" name="auth-email" required />
+        <form id="auth-form" class="input-form">
+          <div class="input-group">
+            <label for="auth-email">Email</label>
+            <input type="email" id="auth-email" name="auth-email" required />
+          </div>
 
-          <label for="auth-password">Password</label>
-          <input
-            type="password"
-            id="auth-password"
-            name="auth-password"
-            required
-          />
+          <div class="input-group">
+            <label for="auth-password">Password</label>
+            <input
+              type="password"
+              id="auth-password"
+              name="auth-password"
+              required
+            />
+          </div>
 
           <button type="submit">SUBMIT</button>
         </form>

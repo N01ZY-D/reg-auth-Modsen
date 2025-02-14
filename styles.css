@@ -1,8 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
+html {
+  height: 100%;
+}
+
 body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   font-family: "Roboto", serif;
+  font-weight: 400;
   margin: 0;
 }
 
@@ -26,12 +34,19 @@ header {
   height: 80px;
 }
 
+header a {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28.13px;
+}
+
 nav {
   display: flex; /* Используем flex для nav */
   gap: 50px;
 }
 
 main {
+  flex: 1;
   padding-top: 128px;
   padding-bottom: 139px;
 }
@@ -40,16 +55,122 @@ footer {
   box-sizing: border-box;
   background: linear-gradient(0.25turn, #343333, #484848, #282828);
   color: #fffdfa;
-  position: fixed;
-  left: 0;
-  bottom: 0;
+
   max-width: 100%;
   width: 100%;
+}
+
+footer p {
+  color: #ffffff99;
+  margin-bottom: 26px;
+  margin-top: 0;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18.75px;
+}
+
+footer .license {
+  margin-top: 68px;
+  margin-bottom: 0;
+  padding-bottom: 30px;
+  padding-left: 135px;
+}
+
+.footer-info {
+  padding-top: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+footer .company {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+footer .company a {
+  color: #ffffff99;
+  font-size: 20px;
+  line-height: 19px;
+}
+
+.footer-list-head {
+  color: #e0a449;
+
+  font-size: 20px;
+  line-height: 18px;
+  letter-spacing: 3px;
+}
+
+.company-links {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
 }
 
 a {
   color: #fffdfa;
   text-decoration: none;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-section h2 {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 66.72px;
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 27px;
+  width: 311px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  border: 2px solid #767676;
+  border-radius: 4px;
+  padding: 10px;
+  outline: none; /* Убираем стандартное выделение */
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #f17900;
+}
+
+.input-form button {
+  background-color: #f17900;
+  color: #ffffff;
+  border: none;
+  border-radius: 7px;
+  width: 273px;
+  height: 40px;
+  margin: auto;
 }
 
 /* Модальное окно */
