@@ -127,11 +127,23 @@ a {
 }
 
 .form-section h2 {
+  margin-top: 0;
+  margin-bottom: 0;
   font-weight: 700;
   font-size: 48px;
   line-height: 66.72px;
   letter-spacing: 0.03em;
   text-align: center;
+}
+
+.divider {
+  width: 100%;
+  max-width: 288px; /* Длина линии */
+  height: 3px; /* Толщина линии */
+  background-color: #f17900; /* Цвет */
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 61px;
 }
 
 .input-form {
@@ -154,13 +166,22 @@ a {
 .input-group input {
   border: 2px solid #767676;
   border-radius: 4px;
-  padding: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 12px;
   outline: none; /* Убираем стандартное выделение */
   transition: border-color 0.3s, background-color 0.3s;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.36px;
 }
 
 .input-group input:focus {
   border-color: #f17900;
+}
+
+.input-group:has(input:focus) label {
+  color: #f17900;
 }
 
 .input-form button {
