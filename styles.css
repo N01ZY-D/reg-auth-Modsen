@@ -157,6 +157,7 @@ a {
 .input-group {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .input-group label {
@@ -192,6 +193,32 @@ a {
   width: 273px;
   height: 40px;
   margin: auto;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+.error-icon {
+  position: absolute; /* Position the icon */
+  top: 50%; /* Vertically center */
+  right: -25px; /* Adjust as needed */
+  transform: translateY(-50%); /* Center using transform */
+  display: none;
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+}
+
+.error-label {
+  color: red;
+}
+
+.error-border {
+  border-color: red !important;
 }
 
 /* Модальное окно */

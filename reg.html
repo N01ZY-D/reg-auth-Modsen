@@ -14,25 +14,41 @@
       <section class="form-section">
         <h2>REGISTRATION FORM</h2>
         <hr class="divider" />
-        <form id="register-form" class="input-form">
+        <form id="register-form" class="input-form" novalidate>
           <div class="input-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required />
+            <span class="error-icon">
+              <img src="images/error_image.svg" alt="" />
+            </span>
+            <span class="error-message"></span>
           </div>
 
           <div class="input-group">
             <label for="surname">Surname</label>
             <input type="text" id="surname" name="surname" required />
+            <span class="error-icon">
+              <img src="images/error_image.svg" alt="" />
+            </span>
+            <span class="error-message"></span>
           </div>
 
           <div class="input-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" required />
+            <span class="error-icon">
+              <img src="images/error_image.svg" alt="" />
+            </span>
+            <span class="error-message"></span>
           </div>
 
           <div class="input-group">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required />
+            <span class="error-icon">
+              <img src="images/error_image.svg" alt="" />
+            </span>
+            <span class="error-message"></span>
           </div>
           <div class="input-group">
             <label for="confirm-password">Password confirmation</label>
@@ -42,6 +58,10 @@
               name="confirm-password"
               required
             />
+            <span class="error-icon">
+              <img src="images/error_image.svg" alt="" />
+            </span>
+            <span class="error-message"></span>
           </div>
 
           <button type="submit">SUBMIT</button>

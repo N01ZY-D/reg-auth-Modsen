@@ -14,10 +14,14 @@
       <section class="form-section">
         <h2>Authorization</h2>
         <hr class="divider" />
-        <form id="auth-form" class="input-form">
+        <form id="auth-form" class="input-form" novalidate>
           <div class="input-group">
             <label for="auth-email">Email</label>
             <input type="email" id="auth-email" name="auth-email" required />
+            <span class="error-icon">
+              <img src="images/error_image.svg" alt="" />
+            </span>
+            <span class="error-message"></span>
           </div>
 
           <div class="input-group">
@@ -28,6 +32,10 @@
               name="auth-password"
               required
             />
+            <span class="error-icon">
+              <img src="images/error_image.svg" alt="" />
+            </span>
+            <span class="error-message"></span>
           </div>
 
           <button type="submit">SUBMIT</button>

@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.getElementById("register-form");
   const authForm = document.getElementById("auth-form");
 
-  // Функция для загрузки header и footer
   function loadCommonComponents() {
     return Promise.all([
       fetch("header.html")
@@ -27,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ]);
   }
 
-  // Функция для отображения модального окна
   function showModal(message) {
     const modal = document.getElementById("modal");
 
@@ -36,8 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (modalText) {
         modalText.textContent = message;
         modal.classList.add("active");
-
-        // Размытие всей страницы
         document.body.classList.add("blur");
       } else {
         console.error("Не найден элемент <p> внутри модального окна.");
@@ -47,14 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Функция для инициализации обработчиков событий
   function initializeEvents() {
     const closeModal = document.querySelector(".close");
     const modal = document.getElementById("modal");
 
     if (closeModal) {
       closeModal.addEventListener("click", (e) => {
-        e.stopPropagation(); // Останавливаем распространение события, чтобы оно не "попало" на модальное окно
+        e.stopPropagation();
         if (modal) {
           modal.classList.remove("active");
           document.body.classList.remove("blur");
@@ -62,10 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Закрытие модального окна при клике вне его
     if (modal) {
       modal.addEventListener("click", (e) => {
-        // Закрытие только при клике на сам фон (мимо контента модального окна)
         if (e.target === modal) {
           modal.classList.remove("active");
           document.body.classList.remove("blur");
@@ -74,31 +67,110 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Обработчики для форм
+  function validateInput(input, regex, errorMsg) {
+    const errorSpan = input.parentElement.querySelector(".error-message");
+    const errorIcon = input.parentElement.querySelector(".error-icon");
+    const label = input.parentElement.querySelector("label");
+
+    if (!regex.test(input.value.trim())) {
+      errorSpan.textContent = errorMsg;
+      errorIcon.style.display = "inline";
+      input.classList.add("error-border");
+      label.classList.add("error-label");
+      return false;
+    } else {
+      errorSpan.textContent = "";
+      errorIcon.style.display = "none";
+      input.classList.remove("error-border");
+      label.classList.remove("error-label");
+      return true;
+    }
+  }
+
   if (registerForm) {
     registerForm.addEventListener("submit", (e) => {
-      e.preventDefault(); // Блокируем стандартное поведение формы
+      e.preventDefault();
 
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirm-password").value;
+      const nameInput = document.getElementById("name");
+      const surnameInput = document.getElementById("surname");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const confirmPasswordInput = document.getElementById("confirm-password");
 
-      if (password !== confirmPassword) {
-        showModal("Пароли не совпадают!");
-        return;
+      let isValid = true;
+
+      isValid &= validateInput(
+        nameInput,
+        /^[A-Za-zА-Яа-яЁё]{2,30}$/,
+        "Enter valid name"
+      );
+      isValid &= validateInput(
+        surnameInput,
+        /^[A-Za-zА-Яа-яЁё]{2,30}$/,
+        "Enter valid surname"
+      );
+      isValid &= validateInput(
+        emailInput,
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        "Email address is incorrect"
+      );
+      isValid &= validateInput(
+        passwordInput,
+        /^[A-Za-z0-9!@#$%^&*()_+=-]{6,30}$/,
+        "The password must be between 6 and 30 characters"
+      );
+
+      // Проверка на совпадение паролей
+      const confirmPasswordErrorSpan =
+        confirmPasswordInput.parentElement.querySelector(".error-message");
+      const confirmPasswordErrorIcon =
+        confirmPasswordInput.parentElement.querySelector(".error-icon");
+      const confirmPasswordLabel =
+        confirmPasswordInput.parentElement.querySelector("label");
+      if (passwordInput.value !== confirmPasswordInput.value) {
+        isValid = false;
+        confirmPasswordErrorSpan.textContent = "Passwords don't match";
+        confirmPasswordErrorIcon.style.display = "inline";
+        confirmPasswordInput.classList.add("error-border");
+        confirmPasswordLabel.classList.add("error-label");
+      } else {
+        confirmPasswordErrorSpan.textContent = "";
+        confirmPasswordErrorIcon.style.display = "none";
+        confirmPasswordInput.classList.remove("error-border");
+        confirmPasswordLabel.classList.remove("error-label");
       }
 
-      showModal("Регистрация успешна!");
+      if (isValid) {
+        showModal("Registartion/ Authorization completed successfully!");
+      }
     });
   }
 
   if (authForm) {
     authForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      showModal("Registartion/ authorization completed successfully!");
+      const emailInput = document.getElementById("auth-email");
+      const passwordInput = document.getElementById("auth-password");
+
+      let isValid = true;
+
+      isValid &= validateInput(
+        emailInput,
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        "Email address is incorrect"
+      );
+      isValid &= validateInput(
+        passwordInput,
+        /^.{6,30}$/,
+        "The password must be between 6 and 30 characters"
+      );
+
+      if (isValid) {
+        showModal("Registartion/ Authorization completed successfully!");
+      }
     });
   }
 
-  // Загружаем общие компоненты при загрузке страницы
   loadCommonComponents().then(() => {
     const regPage = document.getElementById("regLink");
     const authPage = document.getElementById("authLink");
@@ -114,6 +186,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // После загрузки всех компонентов, инициализируем обработчики событий
   initializeEvents();
 });
