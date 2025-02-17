@@ -68,107 +68,105 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function validateInput(input, regex, errorMsg) {
-    const errorSpan = input.parentElement.querySelector(".error-message");
-    const errorIcon = input.parentElement.querySelector(".error-icon");
-    const label = input.parentElement.querySelector("label");
+    const parent = input.parentElement;
+    const errorSpan = parent.querySelector(".error-message");
+    const errorIcon = parent.querySelector(".error-icon");
+    const label = parent.querySelector("label");
+    const isValid = regex.test(input.value.trim());
 
-    if (!regex.test(input.value.trim())) {
-      errorSpan.textContent = errorMsg;
-      errorIcon.style.display = "inline";
-      input.classList.add("error-border");
-      label.classList.add("error-label");
-      return false;
-    } else {
-      errorSpan.textContent = "";
-      errorIcon.style.display = "none";
-      input.classList.remove("error-border");
-      label.classList.remove("error-label");
-      return true;
-    }
+    errorSpan.textContent = isValid ? "" : errorMsg;
+    errorIcon.style.display = isValid ? "none" : "inline";
+    input.classList.toggle("error-border", !isValid);
+    label.classList.toggle("error-label", !isValid);
+
+    return isValid;
+  }
+
+  function validatePasswordMatch(passwordInput, confirmPasswordInput) {
+    const confirmParent = confirmPasswordInput.parentElement;
+    const confirmErrorSpan = confirmParent.querySelector(".error-message");
+    const confirmErrorIcon = confirmParent.querySelector(".error-icon");
+    const confirmLabel = confirmParent.querySelector("label");
+    const isValid = passwordInput.value === confirmPasswordInput.value;
+
+    confirmErrorSpan.textContent = isValid ? "" : "Passwords don't match";
+    confirmErrorIcon.style.display = isValid ? "none" : "inline";
+    confirmPasswordInput.classList.toggle("error-border", !isValid);
+    confirmLabel.classList.toggle("error-label", !isValid);
+
+    return isValid;
+  }
+
+  function handleFormSubmit(form, validationRules, onSuccess) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      let isValid = true;
+
+      validationRules.forEach(({ input, regex, errorMsg }) => {
+        if (!validateInput(input, regex, errorMsg)) {
+          isValid = false;
+        }
+      });
+
+      if (form.id === "register-form") {
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput =
+          document.getElementById("confirm-password");
+        if (!validatePasswordMatch(passwordInput, confirmPasswordInput)) {
+          isValid = false;
+        }
+      }
+
+      if (isValid) onSuccess();
+    });
   }
 
   if (registerForm) {
-    registerForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const nameInput = document.getElementById("name");
-      const surnameInput = document.getElementById("surname");
-      const emailInput = document.getElementById("email");
-      const passwordInput = document.getElementById("password");
-      const confirmPasswordInput = document.getElementById("confirm-password");
-
-      let isValid = true;
-
-      isValid &= validateInput(
-        nameInput,
-        /^[A-Za-zА-Яа-яЁё]{2,30}$/,
-        "Enter valid name"
-      );
-      isValid &= validateInput(
-        surnameInput,
-        /^[A-Za-zА-Яа-яЁё]{2,30}$/,
-        "Enter valid surname"
-      );
-      isValid &= validateInput(
-        emailInput,
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-        "Email address is incorrect"
-      );
-      isValid &= validateInput(
-        passwordInput,
-        /^[A-Za-z0-9!@#$%^&*()_+=-]{6,30}$/,
-        "The password must be between 6 and 30 characters"
-      );
-
-      // Проверка на совпадение паролей
-      const confirmPasswordErrorSpan =
-        confirmPasswordInput.parentElement.querySelector(".error-message");
-      const confirmPasswordErrorIcon =
-        confirmPasswordInput.parentElement.querySelector(".error-icon");
-      const confirmPasswordLabel =
-        confirmPasswordInput.parentElement.querySelector("label");
-      if (passwordInput.value !== confirmPasswordInput.value) {
-        isValid = false;
-        confirmPasswordErrorSpan.textContent = "Passwords don't match";
-        confirmPasswordErrorIcon.style.display = "inline";
-        confirmPasswordInput.classList.add("error-border");
-        confirmPasswordLabel.classList.add("error-label");
-      } else {
-        confirmPasswordErrorSpan.textContent = "";
-        confirmPasswordErrorIcon.style.display = "none";
-        confirmPasswordInput.classList.remove("error-border");
-        confirmPasswordLabel.classList.remove("error-label");
-      }
-
-      if (isValid) {
-        showModal("Registartion/ Authorization completed successfully!");
-      }
-    });
+    handleFormSubmit(
+      registerForm,
+      [
+        {
+          input: document.getElementById("name"),
+          regex: /^[A-Za-zА-Яа-яЁё]{2,30}$/,
+          errorMsg: "Enter valid name",
+        },
+        {
+          input: document.getElementById("surname"),
+          regex: /^[A-Za-zА-Яа-яЁё]{2,30}$/,
+          errorMsg: "Enter valid surname",
+        },
+        {
+          input: document.getElementById("email"),
+          regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          errorMsg: "Email address is incorrect",
+        },
+        {
+          input: document.getElementById("password"),
+          regex: /^[A-Za-z0-9!@#$%^&*()_+=-]{6,30}$/,
+          errorMsg: "The password must be between 6 and 30 characters",
+        },
+      ],
+      () => showModal("Registration/Authorization completed successfully!")
+    );
   }
 
   if (authForm) {
-    authForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const emailInput = document.getElementById("auth-email");
-      const passwordInput = document.getElementById("auth-password");
-
-      let isValid = true;
-
-      isValid &= validateInput(
-        emailInput,
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-        "Email address is incorrect"
-      );
-      isValid &= validateInput(
-        passwordInput,
-        /^.{6,30}$/,
-        "The password must be between 6 and 30 characters"
-      );
-
-      if (isValid) {
-        showModal("Registartion/ Authorization completed successfully!");
-      }
-    });
+    handleFormSubmit(
+      authForm,
+      [
+        {
+          input: document.getElementById("auth-email"),
+          regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          errorMsg: "Email address is incorrect",
+        },
+        {
+          input: document.getElementById("auth-password"),
+          regex: /^.{6,30}$/,
+          errorMsg: "The password must be between 6 and 30 characters",
+        },
+      ],
+      () => showModal("Registration/Authorization completed successfully!")
+    );
   }
 
   loadCommonComponents().then(() => {
