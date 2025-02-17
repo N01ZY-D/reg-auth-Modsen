@@ -117,7 +117,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      if (isValid) onSuccess();
+      if (isValid) {
+        onSuccess();
+        form.reset();
+      }
     });
   }
 
