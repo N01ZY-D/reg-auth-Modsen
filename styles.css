@@ -323,6 +323,10 @@ body.blur *:not(.modal, .modal *) {
   .form-section h2 {
     font-size: 32px;
   }
+
+  .footer-list-head {
+    margin-bottom: 0px;
+  }
 }
 
 @media (max-width: 320px) {
