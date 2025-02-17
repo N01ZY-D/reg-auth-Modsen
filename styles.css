@@ -277,3 +277,56 @@ body.blur *:not(.modal, .modal *) {
   filter: blur(5px); /* Размыть все, кроме модального окна */
   pointer-events: none;
 }
+
+@media (max-width: 900px) {
+  header {
+    padding: 21px 10px 8px 10px;
+    justify-content: space-between;
+  }
+
+  nav {
+    justify-content: space-around;
+  }
+
+  .footer-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px; /* Расстояние между элементами */
+  }
+
+  .footer-info > div:first-child {
+    width: 80%; /* Первый элемент занимает всю ширину */
+    text-align: center;
+  }
+
+  .footer-info > div:not(:first-child) {
+    width: 45%; /* Остальные элементы по 2 в ряд */
+    text-align: center;
+  }
+
+  footer .license {
+    padding-left: 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 580px) {
+  nav {
+    flex-direction: column;
+    gap: unset;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 400px) {
+  .form-section h2 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 320px) {
+  header img {
+    max-width: 140px;
+  }
+}
