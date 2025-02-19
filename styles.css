@@ -244,6 +244,7 @@ a {
 
 /* Модальное окно */
 .modal {
+  z-index: 1000;
   font-family: "Nunito Sans", serif;
   font-weight: 700;
   font-size: 32px;
