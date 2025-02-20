@@ -48,22 +48,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("modal");
 
     if (closeModal) {
-      closeModal.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (modal) {
-          modal.classList.remove("active");
-          document.body.classList.remove("blur");
-        }
-      });
+      closeModal.addEventListener("click", handleModalClose);
     }
 
     if (modal) {
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-          modal.classList.remove("active");
-          document.body.classList.remove("blur");
-        }
-      });
+      modal.addEventListener("click", modalBlurRemove);
     }
   }
 
@@ -97,31 +86,77 @@ document.addEventListener("DOMContentLoaded", () => {
     return isValid;
   }
 
+  // function handleFormSubmit(form, validationRules, onSuccess) {
+  //   form.addEventListener("submit", (e) => {
+  //     e.preventDefault();
+  //     let isValid = true;
+
+  //     validationRules.forEach(({ input, regex, errorMsg }) => {
+  //       if (!validateInput(input, regex, errorMsg)) {
+  //         isValid = false;
+  //       }
+  //     });
+
+  //     if (form.id === "register-form") {
+  //       const passwordInput = document.getElementById("password");
+  //       const confirmPasswordInput =
+  //         document.getElementById("confirm-password");
+  //       if (!validatePasswordMatch(passwordInput, confirmPasswordInput)) {
+  //         isValid = false;
+  //       }
+  //     }
+
+  //     if (isValid) {
+  //       onSuccess();
+  //       form.reset();
+  //     }
+  //   });
+  // }
+
   function handleFormSubmit(form, validationRules, onSuccess) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      let isValid = true;
+    form.addEventListener(
+      "submit",
+      formSubmitHandler(validationRules, onSuccess)
+    );
+  }
 
-      validationRules.forEach(({ input, regex, errorMsg }) => {
-        if (!validateInput(input, regex, errorMsg)) {
-          isValid = false;
-        }
-      });
+  function formSubmitHandler(event, validationRules, onSuccess) {
+    event.preventDefault();
+    let isValid = true;
 
-      if (form.id === "register-form") {
-        const passwordInput = document.getElementById("password");
-        const confirmPasswordInput =
-          document.getElementById("confirm-password");
-        if (!validatePasswordMatch(passwordInput, confirmPasswordInput)) {
-          isValid = false;
-        }
-      }
-
-      if (isValid) {
-        onSuccess();
-        form.reset();
+    validationRules.forEach(({ input, regex, errorMsg }) => {
+      if (!validateInput(input, regex, errorMsg)) {
+        isValid = false;
       }
     });
+
+    if (form.id === "register-form") {
+      const passwordInput = document.getElementById("password");
+      const confirmPasswordInput = document.getElementById("confirm-password");
+      if (!validatePasswordMatch(passwordInput, confirmPasswordInput)) {
+        isValid = false;
+      }
+    }
+
+    if (isValid) {
+      onSuccess();
+      form.reset();
+    }
+  }
+
+  function handleModalClose(event) {
+    event.stopPropagation();
+    if (modal) {
+      modal.classList.remove("active");
+      document.body.classList.remove("blur");
+    }
+  }
+
+  function modalBlurRemove(event) {
+    if (event.target === modal) {
+      modal.classList.remove("active");
+      document.body.classList.remove("blur");
+    }
   }
 
   if (registerForm) {
