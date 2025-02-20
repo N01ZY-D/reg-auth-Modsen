@@ -96,16 +96,21 @@ footer .license {
   justify-content: space-around;
 }
 
-footer .company {
+.footer-info .company {
   display: flex;
   flex-direction: column;
   gap: 26px;
 }
 
-footer .company a {
+.footer-info a {
   color: var(--text-color-grey);
   font-size: 20px;
   line-height: 19px;
+  transition: color 0.1s;
+}
+
+.footer-info a:hover {
+  color: var(--secondary-color);
 }
 
 .footer-list-head {
