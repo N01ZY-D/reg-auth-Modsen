@@ -86,33 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return isValid;
   }
 
-  // function handleFormSubmit(form, validationRules, onSuccess) {
-  //   form.addEventListener("submit", (e) => {
-  //     e.preventDefault();
-  //     let isValid = true;
-
-  //     validationRules.forEach(({ input, regex, errorMsg }) => {
-  //       if (!validateInput(input, regex, errorMsg)) {
-  //         isValid = false;
-  //       }
-  //     });
-
-  //     if (form.id === "register-form") {
-  //       const passwordInput = document.getElementById("password");
-  //       const confirmPasswordInput =
-  //         document.getElementById("confirm-password");
-  //       if (!validatePasswordMatch(passwordInput, confirmPasswordInput)) {
-  //         isValid = false;
-  //       }
-  //     }
-
-  //     if (isValid) {
-  //       onSuccess();
-  //       form.reset();
-  //     }
-  //   });
-  // }
-
   function handleFormSubmit(form, validationRules, onSuccess) {
     form.addEventListener(
       "submit",
