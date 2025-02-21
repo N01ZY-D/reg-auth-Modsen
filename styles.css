@@ -58,6 +58,10 @@ nav {
   gap: 50px;
 }
 
+.active-link {
+  color: #f17900;
+}
+
 main {
   flex: 1;
   padding-top: 128px;
@@ -237,6 +241,10 @@ a {
   width: 16px;
   height: 16px;
   margin-left: 5px;
+}
+
+.error-icon.visible {
+  display: inline;
 }
 
 .error-label {

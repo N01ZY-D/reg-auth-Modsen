@@ -26,6 +26,22 @@ document.addEventListener("DOMContentLoaded", () => {
     ]);
   }
 
+  function updateActiveLink() {
+    const regPage = document.getElementById("regLink");
+    const authPage = document.getElementById("authLink");
+
+    if (regPage && authPage) {
+      regPage.classList.remove("active-link");
+      authPage.classList.remove("active-link");
+
+      if (registerForm) {
+        regPage.classList.add("active-link");
+      } else if (authForm) {
+        authPage.classList.add("active-link");
+      }
+    }
+  }
+
   function showModal(message) {
     const modal = document.getElementById("modal");
 
@@ -64,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const isValid = regex.test(input.value.trim());
 
     errorSpan.textContent = isValid ? "" : errorMsg;
-    errorIcon.style.display = isValid ? "none" : "inline";
+    errorIcon.classList.toggle("visible", !isValid);
     input.classList.toggle("error-border", !isValid);
     label.classList.toggle("error-label", !isValid);
 
@@ -79,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const isValid = passwordInput.value === confirmPasswordInput.value;
 
     confirmErrorSpan.textContent = isValid ? "" : "Passwords don't match";
-    confirmErrorIcon.style.display = isValid ? "none" : "inline";
+    confirmErrorIcon.classList.toggle("visible", !isValid);
     confirmPasswordInput.classList.toggle("error-border", !isValid);
     confirmLabel.classList.toggle("error-label", !isValid);
 
@@ -87,14 +103,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function handleFormSubmit(form, validationRules, onSuccess) {
-    form.addEventListener(
-      "submit",
-      formSubmitHandler(validationRules, onSuccess)
-    );
+    const submitHandler = (event) => {
+      event.preventDefault();
+      formSubmitHandler(form, validationRules, onSuccess);
+    };
+
+    form.addEventListener("submit", submitHandler);
   }
 
-  function formSubmitHandler(event, validationRules, onSuccess) {
-    event.preventDefault();
+  function formSubmitHandler(form, validationRules, onSuccess) {
     let isValid = true;
 
     validationRules.forEach(({ input, regex, errorMsg }) => {
@@ -157,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
           errorMsg: "The password must be between 6 and 30 characters",
         },
       ],
-      () => showModal("Registration/Authorization completed successfully!")
+      () => showModal("Registration/ Authorization completed successfully!")
     );
   }
 
@@ -176,23 +193,12 @@ document.addEventListener("DOMContentLoaded", () => {
           errorMsg: "The password must be between 6 and 30 characters",
         },
       ],
-      () => showModal("Registration/Authorization completed successfully!")
+      () => showModal("Registration/ Authorization completed successfully!")
     );
   }
 
   loadCommonComponents().then(() => {
-    const regPage = document.getElementById("regLink");
-    const authPage = document.getElementById("authLink");
-
-    if (regPage && authPage) {
-      if (registerForm) {
-        regPage.style.color = "#f17900";
-        authPage.style.color = "#fffdfa";
-      } else if (authForm) {
-        regPage.style.color = "#fffdfa";
-        authPage.style.color = "#f17900";
-      }
-    }
+    updateActiveLink();
   });
 
   initializeEvents();
