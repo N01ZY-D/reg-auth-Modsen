@@ -51,6 +51,11 @@ header a {
   font-weight: 400;
   font-size: 24px;
   line-height: 28.13px;
+  transition: color 0.1s ease;
+}
+
+header a:hover {
+  color: var(--secondary-color);
 }
 
 nav {
@@ -110,7 +115,8 @@ footer .license {
   color: var(--text-color-grey);
   font-size: 20px;
   line-height: 19px;
-  transition: color 0.1s;
+  margin-right: auto;
+  transition: color 0.1s ease;
 }
 
 .footer-info a:hover {
@@ -135,6 +141,22 @@ footer .license {
   display: flex;
   flex-direction: row;
   gap: 12px;
+}
+
+.social-links a svg circle {
+  transition: fill 0.2s ease;
+}
+
+.social-links a svg:hover circle {
+  fill: var(--secondary-color);
+}
+
+.social-links a svg path {
+  transition: fill 0.2s ease;
+}
+
+.social-links a svg:hover path {
+  fill: var(--text-color);
 }
 
 a {
@@ -215,6 +237,7 @@ a {
   width: 273px;
   height: 40px;
   margin: auto;
+  transition: background-color 0.1s ease;
 }
 
 .form-section button:hover {
@@ -328,10 +351,22 @@ body.blur *:not(.modal, .modal *) {
     flex-wrap: wrap;
     justify-content: center;
     gap: 40px; /* Расстояние между элементами */
+    padding-top: 40px;
+  }
+
+  .footer-info a {
+    margin: auto;
+  }
+
+  .company-links {
+    flex-direction: row;
+    gap: unset;
   }
 
   .footer-info > div:first-child {
-    width: 80%; /* Первый элемент занимает всю ширину */
+    width: 70%; /* Первый элемент занимает всю ширину */
+    justify-content: space-between;
+    margin: auto;
     text-align: center;
   }
 
@@ -341,6 +376,7 @@ body.blur *:not(.modal, .modal *) {
   }
 
   footer .license {
+    margin-top: 40px;
     padding-left: 0;
     text-align: center;
   }
@@ -351,6 +387,13 @@ body.blur *:not(.modal, .modal *) {
     flex-direction: column;
     gap: unset;
     justify-content: space-between;
+  }
+}
+
+@media (max-width: 500px) {
+  .company-links {
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
